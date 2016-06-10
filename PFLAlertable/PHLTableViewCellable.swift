@@ -19,9 +19,7 @@ extension TableViewCellable where Self: UITableViewCell {
             self.separatorInset = UIEdgeInsetsZero
         }
         if self.respondsToSelector(Selector("layoutMargins")) {
-            if #available(iOS 8.0, *) {
-                self.layoutMargins = UIEdgeInsetsZero
-            } else {}
+            self.layoutMargins = UIEdgeInsetsZero
         }
     }
 }

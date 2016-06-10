@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "PFLAlertable"
-  s.version      = "0.0.1"
+  s.version      = “0.0.2”
   s.summary      = "all kinds of alertableProtocol for iOS developer."
   s.description  = <<-DESC
                       this project provide all kinds of alertableProtocol for iOS developer 
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "8.0"
  
 
-  s.source       = { :git => "https://github.com/pangfuli/PFLAlertable.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/pangfuli/PFLAlertable.git", :tag => “0.0.2” }
 
 
   s.source_files  = "PFLAlertable", "PFLAlertable/*.{swift}"

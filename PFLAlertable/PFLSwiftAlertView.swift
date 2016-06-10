@@ -10,6 +10,7 @@ import UIKit
 import AudioToolbox
 import IQKeyboardManagerSwift
 
+
 let leadingX: CGFloat = 10
 let trailingX: CGFloat = 10
 let topYY: CGFloat = 40
@@ -27,23 +28,23 @@ let aCenter: CGPoint = CGPointMake(CGRectGetMidX(UIScreen.mainScreen().bounds), 
     func didClick(alertView: PFLSwiftAlertView, confirmButton:UIButton)
 }
 
-typealias cancelClosure = ()->()
-typealias confirmClosure = ()->()
-typealias textFieldDidEndEditingClosure = (sting: String)->()
-typealias didSelectedIndexPathClosures = (String, NSInteger)->()
+public typealias cancelClosure = ()->()
+public typealias confirmClosure = ()->()
+public typealias textFieldDidEndEditingClosure = (sting: String)->()
+public typealias didSelectedIndexPathClosures = (String, NSInteger)->()
 
 
 
 
 
-class PFLSwiftAlertView: UIView, Animationable {
-
-    var didClickedCancelBtnClosure: cancelClosure?
-    var didClickedConfirmBtnClosure: confirmClosure?
-    var textFieldDidEndEditClosure: textFieldDidEndEditingClosure?
-    var didSelectedIndexPathClosure: didSelectedIndexPathClosures?
-    var passwordLength: Int = 6
-    var message: String? {
+public class PFLSwiftAlertView: UIView, Animationable, UITextFieldDelegate,  UITableViewDataSource, UITableViewDelegate {
+    
+    public var didClickedCancelBtnClosure: cancelClosure?
+    public var didClickedConfirmBtnClosure: confirmClosure?
+    public var textFieldDidEndEditClosure: textFieldDidEndEditingClosure?
+    public var didSelectedIndexPathClosure: didSelectedIndexPathClosures?
+    public var passwordLength: Int = 6
+    public var message: String? {
         didSet {
             self.messageLabel?.text = message
         }
@@ -54,7 +55,7 @@ class PFLSwiftAlertView: UIView, Animationable {
     private var confirmButtonTitle: String?
     private var tableView: UITableView?
     
-    var title: String? {
+    public var title: String? {
         didSet {
             self.titleLabel?.text = title
         }
@@ -71,7 +72,7 @@ class PFLSwiftAlertView: UIView, Animationable {
      
      - returns: alertView
      */
-    required init(title: String? = "提示", message: String?, delegate: AnyObject?, cancelButtonTitle: String?, otherButtonTitle: String?) {
+    required public init(title: String? = "提示", message: String?, delegate: AnyObject?, cancelButtonTitle: String?, otherButtonTitle: String?) {
         let rect: CGRect = CGRectMake(0, 0, alertViewWidth, 100)
         super.init(frame:rect)
         self.title = title
@@ -112,12 +113,12 @@ class PFLSwiftAlertView: UIView, Animationable {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     
-    convenience init(withTableView tableView:UITableView) {
+    convenience public init(withTableView tableView:UITableView) {
         self.init(title: "交易类别", message: nil, delegate: nil, cancelButtonTitle: nil, otherButtonTitle: "确定")
         self.tableView = tableView
         tableView.delegate = self
@@ -137,8 +138,8 @@ class PFLSwiftAlertView: UIView, Animationable {
             self.inputTextField.placeholder = inputTextFieldPlaceholder
         }
     }
-
-    var dataSource: [String]? {
+    
+    public var dataSource: [String]? {
         didSet {
             if let tableView = self.tableView {
                 if let dataSource = self.dataSource {
@@ -152,7 +153,7 @@ class PFLSwiftAlertView: UIView, Animationable {
     }
     
     //MARK: itemsArr 与 hasTextField 不能同时设置
-    var itemsArr: NSArray? {
+    public var itemsArr: NSArray? {
         didSet {
             
             guard  self.alertViewType != .TextFieldType else {return};
@@ -195,7 +196,7 @@ class PFLSwiftAlertView: UIView, Animationable {
         }
     }
     
-    var alertViewType: AlertViewType = .PlainType {
+    public var alertViewType: AlertViewType = .PlainType {
         didSet {
             switch (alertViewType) {
             case .PlainType:
@@ -210,8 +211,8 @@ class PFLSwiftAlertView: UIView, Animationable {
             }
         }
     }
-
-    var textFieldHeight: CGFloat = itemH {
+    
+    public var textFieldHeight: CGFloat = itemH {
         didSet {
             guard  alertViewType == .TextFieldType else{return}
             inputTextField.frame.size.height = textFieldHeight;
@@ -243,13 +244,13 @@ class PFLSwiftAlertView: UIView, Animationable {
         let kbHeight:CGFloat = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue().size.height
         let kbRect: CGRect = CGRectMake(0, UIScreen.mainScreen().bounds.height - kbHeight, UIScreen.mainScreen().bounds.width, kbHeight)
         let point: CGPoint = CGPointMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds)/2 + UIScreen.mainScreen().bounds.height/2)
-
+        
         if (CGRectContainsPoint(kbRect, point)) {
             let deltaY: CGFloat =  point.y - kbRect.origin.y;
             self.frame.origin.y -= deltaY
         }
     }
-
+    
     lazy private var contentView: UIView = {
         var contentView = UIView(frame: self.bounds)
         self.addSubview(contentView)
@@ -291,13 +292,13 @@ class PFLSwiftAlertView: UIView, Animationable {
             self.contentView.addSubview(messageLabel)
             self.topY = CGRectGetMaxY(messageLabel.frame)
             return messageLabel
- 
+            
         }
         else {
             return nil
         }
     }()
-
+    
     lazy private var cancelBtn: UIButton? = {
         if let cancelTitle = self.cancelButtonTitle {
             var btn: UIButton = UIButton(frame: CGRectMake(0, 0, CGRectGetWidth(self.bounds) * 0.5, btnH))
@@ -314,7 +315,7 @@ class PFLSwiftAlertView: UIView, Animationable {
         }
     }()
     
-    var cancelBtnColor: UIColor = UIColor.redColor() {
+    public var cancelBtnColor: UIColor = UIColor.redColor() {
         didSet {
             guard let cancelBtn = cancelBtn else {return}
             cancelBtn.setTitleColor(cancelBtnColor, forState: .Normal)
@@ -322,14 +323,14 @@ class PFLSwiftAlertView: UIView, Animationable {
     }
     
     
-    var confirmBtnColor: UIColor = UIColor.redColor() {
+    public var confirmBtnColor: UIColor = UIColor.redColor() {
         didSet {
             guard let confirmBtn = confirmBtn else {return}
             confirmBtn.setTitleColor(confirmBtnColor, forState: .Normal)
         }
     }
-
-
+    
+    
     
     lazy private var confirmBtn: UIButton? = {
         if let confirmTitle = self.confirmButtonTitle {
@@ -345,7 +346,7 @@ class PFLSwiftAlertView: UIView, Animationable {
         else {
             return nil
         }
-        }()
+    }()
     
     lazy private var dynamicAnimator: UIDynamicAnimator = {
         var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: self.bgWindow)
@@ -356,14 +357,14 @@ class PFLSwiftAlertView: UIView, Animationable {
         var bgWindow: UIWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
         bgWindow.makeKeyAndVisible()
         return bgWindow
-        }()
-
+    }()
+    
     lazy private var bgCoverView: UIView = {
         var bgCoverView: UIView = UIView(frame: UIScreen.mainScreen().bounds)
         bgCoverView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         return bgCoverView
-        }()
-
+    }()
+    
     lazy private var topLine: UIView = {
         
         var y: CGFloat =  (self.cancelBtn != nil) ? CGRectGetMinY(self.cancelBtn!.frame) : CGRectGetMinY(self.confirmBtn!.frame)
@@ -406,7 +407,7 @@ class PFLSwiftAlertView: UIView, Animationable {
         self.adjustCenter()
         return inputTextField
     }()
-
+    
     
     private func getLabelHeight(label: UILabel) -> CGFloat {
         
@@ -457,14 +458,14 @@ class PFLSwiftAlertView: UIView, Animationable {
                     delegate.didClick!(self, confirmButton: btn)
                 }
             }
-
+            
         default: break
         }
         self.dismissAlertView()
     }
     
     
-    func animationForNoneString() {
+    private func animationForNoneString() {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         let animationKeyPath = CAKeyframeAnimation(keyPath: "position.x")
         let centerX = CGRectGetMidX(self.bounds) * 0
@@ -508,8 +509,8 @@ class PFLSwiftAlertView: UIView, Animationable {
     }
     
     
-        
-    func show() {
+    
+    public func show() {
         self.bgWindow.addSubview(self.bgCoverView)
         self.bgWindow.addSubview(self)
         self.dynamicAnimator.addBehavior(self.addDropBehavior())
@@ -541,13 +542,13 @@ class PFLSwiftAlertView: UIView, Animationable {
     }
 }
 
-extension PFLSwiftAlertView: UITextFieldDelegate {
+public extension PFLSwiftAlertView {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    public  func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.endEditing(true)
         return true
     }
-    func textFieldDidEndEditing(textField: UITextField) {
+    public  func textFieldDidEndEditing(textField: UITextField) {
         if let isEndBlock = self.textFieldDidEndEditClosure, txt = textField.text {
             isEndBlock(sting: txt)
         }
@@ -555,7 +556,7 @@ extension PFLSwiftAlertView: UITextFieldDelegate {
 }
 
 
-extension PFLSwiftAlertView: UITableViewDataSource, UITableViewDelegate {
+public extension PFLSwiftAlertView {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let dataSource = self.dataSource {
@@ -572,12 +573,12 @@ extension PFLSwiftAlertView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-      
+        
         if let closure = self.didSelectedIndexPathClosure, let dataSource = dataSource {
             closure(dataSource[indexPath.row], indexPath.row)
         }
         self.dismissAlertView()
-
+        
     }
     
 }

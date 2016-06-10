@@ -1,6 +1,6 @@
 
 
-enum AlertViewType: Int {
+public enum AlertViewType: Int {
    case PlainType,TextFieldType
 }
 

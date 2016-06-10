@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                       this project provide all kinds of alertableProtocol for iOS developer 
                    DESC
 
-  s.homepage     = "https://SouthSnow@github.com/SouthSnow/PFLAlertable"
+  s.homepage     = "https://github.com/pangfuli/PFLAlertable"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "haq" => "pflnh@me.com" }
+  s.author             = { "haq" => "pflnh2011@gmail.com" }
   # Or just: s.author    = "haq"
   # s.authors            = { "haq" => "pflnh@me.com" }
   # s.social_media_url   = "http://twitter.com/haq"
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://SouthSnow@github.com/SouthSnow/PFLAlertable.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/pangfuli/PFLAlertable.git", :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

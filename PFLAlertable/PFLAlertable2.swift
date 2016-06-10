@@ -7,11 +7,11 @@
 //
 
 
-@objc protocol PFLAlertable {
+@objc protocol PFLAlertable2 {
     optional func showMsg(msg: String, cancel: String?, ok: String?, handle:(()->())?, cancelHandle:(()->())?)
 }
 
-extension PFLAlertable {
+extension PFLAlertable2 {
    func showMsg(msg: String, cancel: String? = nil,ok: String? = "确定", handle:(()->())? = nil, cancelHandle:(()->())? = nil) {
         let alertView = PFLSwiftAlertView(title: "提示", message: msg, delegate: nil, cancelButtonTitle: cancel, otherButtonTitle: ok)
         alertView.didClickedConfirmBtnClosure = { _ in

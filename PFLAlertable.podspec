@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.summary      = "all kinds of alertableProtocol for iOS developer."
   s.description  = <<-DESC
                       this project provide all kinds of alertableProtocol for iOS developer 
-                   DES
+                   DESC
 
   s.homepage     = "https://github.com/pangfuli/PFLAlertable"
 

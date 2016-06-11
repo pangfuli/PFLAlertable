@@ -2,11 +2,11 @@ Pod::Spec.new do |s|
 
 
   s.name         = "PFLAlertable"
-  s.version      = "0.0.8"
+  s.version      = "0.0.9"
   s.summary      = "all kinds of alertableProtocol for iOS developer."
   s.description  = <<-DESC
                       this project provide all kinds of alertableProtocol for iOS developer 
-                   DESC
+                   DES
 
   s.homepage     = "https://github.com/pangfuli/PFLAlertable"
 

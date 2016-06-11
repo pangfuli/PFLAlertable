@@ -9,24 +9,24 @@
 import UIKit
 
 public protocol ViewFrameable {
-     public var x: CGFloat {set get}
-     public var y: CGFloat  {set get}
-     public var left: CGFloat  {set get}
-     public var right: CGFloat  {set get}
-     public var top: CGFloat  {set get}
-     public var bottom: CGFloat  {set get}
-     public var width: CGFloat {set get}
-     public var height: CGFloat {set get}
-     public var centerX: CGFloat {set get}
-     public var centerY: CGFloat {set get}
-     public var center_: CGPoint {set get}
-     public var origin: CGPoint {set get}
-     public var size: CGSize {set get}
+     var x: CGFloat {set get}
+     var y: CGFloat  {set get}
+     var left: CGFloat  {set get}
+     var right: CGFloat  {set get}
+     var top: CGFloat  {set get}
+     var bottom: CGFloat  {set get}
+     var width: CGFloat {set get}
+     var height: CGFloat {set get}
+     var centerX: CGFloat {set get}
+     var centerY: CGFloat {set get}
+     var center_: CGPoint {set get}
+     var origin: CGPoint {set get}
+     var size: CGSize {set get}
 }
 
-extension ViewFrameable where Self: UIView {
+public extension ViewFrameable where Self: UIView {
     
-     public var x: CGFloat {
+     var x: CGFloat {
         set {
             self.frame = CGRect(x: newValue, y: self.y, width: self.width, height: self.height)
         }
@@ -35,7 +35,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var y: CGFloat {
+     var y: CGFloat {
         set {
             self.frame = CGRect(x: self.x, y: newValue, width: self.width, height: self.height)
         }
@@ -44,7 +44,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var top: CGFloat {
+     var top: CGFloat {
         set {
             self.y = newValue
         }
@@ -53,7 +53,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var bottom: CGFloat {
+     var bottom: CGFloat {
         set {
             self.frame = CGRectMake(self.x, newValue - self.height, self.width, self.height)
         }
@@ -62,7 +62,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var left: CGFloat {
+     var left: CGFloat {
         set {
             self.x = newValue
         }
@@ -71,7 +71,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var right: CGFloat {
+     var right: CGFloat {
         set {
             self.frame = CGRectMake(newValue - self.width, self.y, self.width, self.height)
         }
@@ -80,7 +80,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var centerX: CGFloat {
+     var centerX: CGFloat {
         set {
             self.center = CGPointMake(newValue, centerY);
         }
@@ -89,7 +89,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var centerY: CGFloat {
+     var centerY: CGFloat {
         set {
             self.center = CGPointMake(centerX, newValue);
         }
@@ -98,7 +98,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var center_: CGPoint {
+     var center_: CGPoint {
         set {
             self.center = newValue
         }
@@ -107,7 +107,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var origin: CGPoint {
+     var origin: CGPoint {
         set {
             self.frame.origin = origin
         }
@@ -116,7 +116,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var size: CGSize {
+     var size: CGSize {
         set {
             self.frame.size = newValue
         }
@@ -125,7 +125,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
 
-     public var width: CGFloat {
+     var width: CGFloat {
         set {
             self.frame = CGRect(x: self.x, y: self.y, width: newValue, height: self.height)
         }
@@ -134,7 +134,7 @@ extension ViewFrameable where Self: UIView {
         }
     }
     
-     public var height: CGFloat {
+     var height: CGFloat {
         set {
             self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: newValue)
         }

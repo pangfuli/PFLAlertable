@@ -21,7 +21,7 @@ let alertViewWidth: CGFloat = 250
 let deltaY: CGFloat = 5
 let aCenter: CGPoint = CGPointMake(CGRectGetMidX(UIScreen.mainScreen().bounds), CGRectGetMidY(UIScreen.mainScreen().bounds))
 
-@objc protocol PFLSwiftAlertViewDelegate {
+@objc public protocol PFLSwiftAlertViewDelegate {
     optional
     func didClick(alertView: PFLSwiftAlertView, cancelButton:UIButton)
     optional
@@ -33,10 +33,6 @@ public typealias confirmClosure = ()->()
 public typealias textFieldDidEndEditingClosure = (sting: String)->()
 public typealias didSelectedIndexPathClosures = (String, NSInteger)->()
 
-
-
-
-
 public class PFLSwiftAlertView: UIView, Animationable, UITextFieldDelegate,  UITableViewDataSource, UITableViewDelegate {
     
     public var didClickedCancelBtnClosure: cancelClosure?
@@ -44,12 +40,6 @@ public class PFLSwiftAlertView: UIView, Animationable, UITextFieldDelegate,  UIT
     public var textFieldDidEndEditClosure: textFieldDidEndEditingClosure?
     public var didSelectedIndexPathClosure: didSelectedIndexPathClosures?
     public var passwordLength: Int = 6
-    public var message: String? {
-        didSet {
-            self.messageLabel?.text = message
-        }
-    }
-    
     private var delegate: PFLSwiftAlertViewDelegate?
     private var cancelButtonTitle: String?
     private var confirmButtonTitle: String?
@@ -61,79 +51,14 @@ public class PFLSwiftAlertView: UIView, Animationable, UITextFieldDelegate,  UIT
         }
     }
     
-    /**
-     自定义alertView
-     
-     - parameter title:             标题
-     - parameter message:           信息
-     - parameter delegate:          代理
-     - parameter cancelButtonTitle: 取消按钮
-     - parameter otherButtonTitle:  确定按钮
-     
-     - returns: alertView
-     */
-    required public init(title: String? = "提示", message: String?, delegate: AnyObject?, cancelButtonTitle: String?, otherButtonTitle: String?) {
-        let rect: CGRect = CGRectMake(0, 0, alertViewWidth, 100)
-        super.init(frame:rect)
-        self.title = title
-        self.delegate = delegate as? PFLSwiftAlertViewDelegate
-        self.message = message
-        self.cancelButtonTitle = cancelButtonTitle
-        self.confirmButtonTitle = otherButtonTitle
-        self.frame = rect
-        self.backgroundColor = UIColor.whiteColor()
-        self.layer.cornerRadius = 10.0
-        self.layer.masksToBounds = true
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PFLSwiftAlertView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PFLSwiftAlertView.keyboardDidHide(_:)), name:UIKeyboardDidHideNotification, object: nil)
-        
-        if let _ = title {
-            self.contentView.addSubview(self.titleLabel!)
+    public var message: String? {
+        didSet {
+            self.messageLabel?.text = message
         }
-        
-        if let _ = message {
-            self.contentView.addSubview(self.messageLabel!)
-        }
-        
-        if let _ = cancelButtonTitle {
-            self.contentView.addSubview(self.cancelBtn!)
-        }
-        
-        if let _ = confirmButtonTitle {
-            self.contentView.addSubview(self.confirmBtn!)
-        }
-        
-        self.contentView.addSubview(self.topLine)
-        
-        if let _ = cancelButtonTitle, _ = confirmButtonTitle {
-            self.contentView.addSubview(self.midLine!)
-        }
-        
-        self.adjustCenter()
-        
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
     
     
-    convenience public init(withTableView tableView:UITableView) {
-        self.init(title: "交易类别", message: nil, delegate: nil, cancelButtonTitle: nil, otherButtonTitle: "确定")
-        self.tableView = tableView
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.tableFooterView = UIView()
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.contentView.addSubview(tableView)
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        tableView.separatorInset = UIEdgeInsetsZero;
-        self.frame = CGRectMake(0, 0, alertViewWidth, 400)
-        tableView.frame = CGRectMake(0, 40, self.bounds.width, self.bounds.height)
-        adjustCenter()
-    }
-    
-    var inputTextFieldPlaceholder = "请输入支付密码" {
+    public var inputTextFieldPlaceholder = "请输入支付密码" {
         didSet {
             self.inputTextField.placeholder = inputTextFieldPlaceholder
         }
@@ -231,6 +156,80 @@ public class PFLSwiftAlertView: UIView, Animationable, UITextFieldDelegate,  UIT
         }
     }
     
+    
+    /**
+     自定义alertView
+     
+     - parameter title:             标题
+     - parameter message:           信息
+     - parameter delegate:          代理
+     - parameter cancelButtonTitle: 取消按钮
+     - parameter otherButtonTitle:  确定按钮
+     
+     - returns: alertView
+     */
+    required public init(title: String? = "提示", message: String?, delegate: AnyObject?, cancelButtonTitle: String?, otherButtonTitle: String?) {
+        let rect: CGRect = CGRectMake(0, 0, alertViewWidth, 100)
+        super.init(frame:rect)
+        self.title = title
+        self.delegate = delegate as? PFLSwiftAlertViewDelegate
+        self.message = message
+        self.cancelButtonTitle = cancelButtonTitle
+        self.confirmButtonTitle = otherButtonTitle
+        self.frame = rect
+        self.backgroundColor = UIColor.whiteColor()
+        self.layer.cornerRadius = 10.0
+        self.layer.masksToBounds = true
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PFLSwiftAlertView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PFLSwiftAlertView.keyboardDidHide(_:)), name:UIKeyboardDidHideNotification, object: nil)
+        
+        if let _ = title {
+            self.contentView.addSubview(self.titleLabel!)
+        }
+        
+        if let _ = message {
+            self.contentView.addSubview(self.messageLabel!)
+        }
+        
+        if let _ = cancelButtonTitle {
+            self.contentView.addSubview(self.cancelBtn!)
+        }
+        
+        if let _ = confirmButtonTitle {
+            self.contentView.addSubview(self.confirmBtn!)
+        }
+        
+        self.contentView.addSubview(self.topLine)
+        
+        if let _ = cancelButtonTitle, _ = confirmButtonTitle {
+            self.contentView.addSubview(self.midLine!)
+        }
+        
+        self.adjustCenter()
+        
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    
+    convenience public init(withTableView tableView:UITableView) {
+        self.init(title: "交易类别", message: nil, delegate: nil, cancelButtonTitle: nil, otherButtonTitle: "确定")
+        self.tableView = tableView
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView()
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.contentView.addSubview(tableView)
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        tableView.separatorInset = UIEdgeInsetsZero;
+        self.frame = CGRectMake(0, 0, alertViewWidth, 400)
+        tableView.frame = CGRectMake(0, 40, self.bounds.width, self.bounds.height)
+        adjustCenter()
+    }
+    
+    
     @objc private func keyboardDidHide(notification: NSNotification) {
         
         UIView.animateWithDuration(0.2) { () -> Void in
@@ -274,7 +273,7 @@ public class PFLSwiftAlertView: UIView, Animationable, UITextFieldDelegate,  UIT
     }()
     
     
-    var isCenter: Bool = true {
+    public var isCenter: Bool = true {
         didSet {
             titleLabel?.textAlignment = isCenter ? .Center : .Left
         }
@@ -385,7 +384,7 @@ public class PFLSwiftAlertView: UIView, Animationable, UITextFieldDelegate,  UIT
         }
     }()
     
-    lazy var inputTextField: UITextField = {
+    lazy public var inputTextField: UITextField = {
         
         var y: CGFloat = topYY/4
         if let msgL = self.messageLabel {

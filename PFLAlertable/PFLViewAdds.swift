@@ -9,24 +9,24 @@
 import UIKit
 
 public protocol ViewFrameable {
-     var x: CGFloat {set get}
-     var y: CGFloat  {set get}
-     var left: CGFloat  {set get}
-     var right: CGFloat  {set get}
-     var top: CGFloat  {set get}
-     var bottom: CGFloat  {set get}
-     var width: CGFloat {set get}
-     var height: CGFloat {set get}
-     var centerX: CGFloat {set get}
-     var centerY: CGFloat {set get}
-     var center_: CGPoint {set get}
-     var origin: CGPoint {set get}
-     var size: CGSize {set get}
+    var x: CGFloat {set get}
+    var y: CGFloat  {set get}
+    var left: CGFloat  {set get}
+    var right: CGFloat  {set get}
+    var top: CGFloat  {set get}
+    var bottom: CGFloat  {set get}
+    var width: CGFloat {set get}
+    var height: CGFloat {set get}
+    var centerX: CGFloat {set get}
+    var centerY: CGFloat {set get}
+    var center_: CGPoint {set get}
+    var origin: CGPoint {set get}
+    var size: CGSize {set get}
 }
 
 public extension ViewFrameable where Self: UIView {
     
-     var x: CGFloat {
+    var x: CGFloat {
         set {
             self.frame = CGRect(x: newValue, y: self.y, width: self.width, height: self.height)
         }
@@ -35,7 +35,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var y: CGFloat {
+    var y: CGFloat {
         set {
             self.frame = CGRect(x: self.x, y: newValue, width: self.width, height: self.height)
         }
@@ -44,7 +44,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var top: CGFloat {
+    var top: CGFloat {
         set {
             self.y = newValue
         }
@@ -53,7 +53,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var bottom: CGFloat {
+    var bottom: CGFloat {
         set {
             self.frame = CGRectMake(self.x, newValue - self.height, self.width, self.height)
         }
@@ -62,7 +62,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var left: CGFloat {
+    var left: CGFloat {
         set {
             self.x = newValue
         }
@@ -71,7 +71,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var right: CGFloat {
+    var right: CGFloat {
         set {
             self.frame = CGRectMake(newValue - self.width, self.y, self.width, self.height)
         }
@@ -80,7 +80,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var centerX: CGFloat {
+    var centerX: CGFloat {
         set {
             self.center = CGPointMake(newValue, centerY);
         }
@@ -89,7 +89,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var centerY: CGFloat {
+    var centerY: CGFloat {
         set {
             self.center = CGPointMake(centerX, newValue);
         }
@@ -98,7 +98,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var center_: CGPoint {
+    var center_: CGPoint {
         set {
             self.center = newValue
         }
@@ -107,7 +107,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var origin: CGPoint {
+    var origin: CGPoint {
         set {
             self.frame.origin = origin
         }
@@ -116,7 +116,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var size: CGSize {
+    var size: CGSize {
         set {
             self.frame.size = newValue
         }
@@ -124,8 +124,8 @@ public extension ViewFrameable where Self: UIView {
             return self.frame.size
         }
     }
-
-     var width: CGFloat {
+    
+    var width: CGFloat {
         set {
             self.frame = CGRect(x: self.x, y: self.y, width: newValue, height: self.height)
         }
@@ -134,7 +134,7 @@ public extension ViewFrameable where Self: UIView {
         }
     }
     
-     var height: CGFloat {
+    var height: CGFloat {
         set {
             self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: newValue)
         }
@@ -145,7 +145,7 @@ public extension ViewFrameable where Self: UIView {
     
 }
 
-public extension UIView: ViewFrameable {}
+extension UIView: ViewFrameable {}
 
 
 

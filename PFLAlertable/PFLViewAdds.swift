@@ -24,7 +24,7 @@ public protocol ViewFrameable {
      public var size: CGSize {set get}
 }
 
-public extension ViewFrameable where Self: UIView {
+extension ViewFrameable where Self: UIView {
     
      public var x: CGFloat {
         set {
